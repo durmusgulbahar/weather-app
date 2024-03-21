@@ -8,6 +8,8 @@ import {
 } from "@tanstack/react-query";
 
 import { WeatherForecastResponse } from "@/models/WeatherData";
+import WeatherContainer from "@/components/WeatherContainer";
+import { convertKelvinToCelcius } from "@/utils/convertKelvinToCelcius";
 export default function Home() {
   const { data, isLoading, isError } = useQuery<WeatherForecastResponse>({
     queryKey: ["weather"],
@@ -27,7 +29,7 @@ export default function Home() {
     );
   }
 
-  const today = data?.list[0].dt_txt;
+  const today = data?.list[0];
   return (
     <div className="flex flex-col gap-4 bg-gray-100 min-h-screen">
       <main className="px-3 max-w-7xl mx-auto flex flex-col gap-9 w-full pb-10 pt-4">
@@ -36,9 +38,18 @@ export default function Home() {
           <div>
             <h2 className="flex gap-1 text-2xl items-end">
               <p>Today</p>
-              <p className="text-lg">({today})</p>
+              <p className="text-lg">({today?.dt_txt})</p>
             </h2>
-           
+            <WeatherContainer>
+              <div className="flex flex-col p-3 justify-center border-solid">
+                <span className="text-lg font-bold">
+                  {convertKelvinToCelcius(today?.main.temp)}°C 
+                </span>
+                <p className="text-xs space-x-1 whitespace-nowrap">
+                  <span>
+                    Feels like</span>{today?.main.feels_like}</p>
+              </div>
+            </WeatherContainer>
           </div>
         </section>
         {/*5 days*/}
