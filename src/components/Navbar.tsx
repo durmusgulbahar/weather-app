@@ -4,9 +4,8 @@ import { TiWeatherWindyCloudy } from "react-icons/ti";
 import { CiLocationOn } from "react-icons/ci";
 import SearchBox from "./SearchBox";
 
-type Props = {};
 
-export default function Navbar({}: Props) {
+export default function Navbar() {
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     console.log(e.target.value);
   }

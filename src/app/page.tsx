@@ -1,15 +1,9 @@
 "use client";
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
 import { WeatherForecastResponse } from "@/models/WeatherData";
-import WeatherContainer from "@/components/WeatherContainer";
 import { convertKelvinToCelcius } from "@/utils/convertKelvinToCelcius";
+import Container from "@/components/Container";
 export default function Home() {
   const { data, isLoading, isError } = useQuery<WeatherForecastResponse>({
     queryKey: ["weather"],
@@ -40,16 +34,17 @@ export default function Home() {
               <p>Today</p>
               <p className="text-lg">({today?.dt_txt})</p>
             </h2>
-            <WeatherContainer>
+            <Container>
               <div className="flex flex-col p-3 justify-center border-solid">
                 <span className="text-lg font-bold">
-                  {convertKelvinToCelcius(today?.main.temp)}°C 
+                  {convertKelvinToCelcius(today?.main.temp)}°C
                 </span>
                 <p className="text-xs space-x-1 whitespace-nowrap">
-                  <span>
-                    Feels like</span>{today?.main.feels_like}</p>
+                  <span>Feels like</span>
+                  {today?.main.feels_like}
+                </p>
               </div>
-            </WeatherContainer>
+            </Container>
           </div>
         </section>
         {/*5 days*/}
